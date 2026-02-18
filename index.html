@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snehal & Sanket — Wedding RSVP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #b8860b;
+            --gold-light: #d4a843;
+            --gold-lighter: #f0e2b5;
+            --green-dark: #2d5016;
+            --green: #4a7c28;
+            --green-light: #6fa33e;
+            --cream: #faf6ee;
+            --cream-dark: #f0e8d8;
+            --text-dark: #3a3018;
+            --text-medium: #5c4d30;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        /* Decorative background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(184, 134, 11, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(74, 124, 40, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 60% 80%, rgba(184, 134, 11, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 20px 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px 30px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .header-ornament {
+            font-size: 28px;
+            color: var(--gold);
+            margin-bottom: 10px;
+            letter-spacing: 8px;
+        }
+
+        .header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: var(--green-dark);
+            line-height: 1.2;
+        }
+
+        .header h1 .amp {
+            display: block;
+            font-size: 1.8rem;
+            color: var(--gold);
+            font-style: italic;
+            margin: 2px 0;
+        }
+
+        .header .subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--text-medium);
+            margin-top: 12px;
+            font-style: italic;
+        }
+
+        .header .tagline {
+            font-size: 0.82rem;
+            color: var(--gold);
+            margin-top: 8px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 30px 0;
+        }
+
+        .divider-line {
+            height: 1px;
+            width: 80px;
+            background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+        }
+
+        .divider-icon {
+            color: var(--gold);
+            font-size: 14px;
+        }
+
+        /* Event Schedule */
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--green-dark);
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--text-medium);
+            margin-bottom: 24px;
+        }
+
+        .events-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .event-card {
+            background: linear-gradient(135deg, #ffffff 0%, var(--cream) 100%);
+            border: 1px solid var(--gold-lighter);
+            border-radius: 14px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(184, 134, 11, 0.1);
+        }
+
+        .event-date-badge {
+            flex-shrink: 0;
+            width: 56px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--green-dark), var(--green));
+            border-radius: 10px;
+            padding: 8px 6px;
+            color: white;
+        }
+
+        .event-date-badge .month {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        .event-date-badge .day {
+            font-size: 1.4rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .event-info {
+            flex: 1;
+        }
+
+        .event-info h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--green-dark);
+            margin-bottom: 4px;
+        }
+
+        .event-info .event-time {
+            font-size: 0.82rem;
+            color: var(--text-medium);
+            margin-bottom: 6px;
+        }
+
+        .event-info .event-venue {
+            font-size: 0.78rem;
+            color: var(--text-medium);
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        .event-info .event-venue a {
+            color: var(--green);
+            text-decoration: none;
+        }
+
+        .event-info .event-venue a:hover {
+            text-decoration: underline;
+        }
+
+        .dress-code {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--gold-lighter);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .dress-code a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .dress-code a:hover {
+            text-decoration: underline;
+        }
+
+        .dress-note {
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--text-medium);
+            font-style: italic;
+            margin-top: 16px;
+            padding: 10px 20px;
+            background: rgba(184, 134, 11, 0.05);
+            border-radius: 8px;
+        }
+
+        /* RSVP Form Section */
+        .rsvp-section {
+            margin-top: 36px;
+            background: white;
+            border-radius: 18px;
+            padding: 32px 24px;
+            border: 1px solid var(--gold-lighter);
+            box-shadow: 0 4px 24px rgba(184, 134, 11, 0.08);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .form-group label .required {
+            color: #c0392b;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid var(--cream-dark);
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            background: var(--cream);
+            transition: border-color 0.2s, box-shadow 0.2s;
+            -webkit-appearance: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #b5a88a;
+        }
+
+        /* Events Checkboxes */
+        .events-checklist {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .event-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            background: var(--cream);
+            border: 1.5px solid var(--cream-dark);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .event-checkbox:hover {
+            border-color: var(--gold-light);
+            background: var(--gold-lighter);
+        }
+
+        .event-checkbox.checked {
+            border-color: var(--green);
+            background: rgba(74, 124, 40, 0.08);
+        }
+
+        .event-checkbox input[type="checkbox"] {
+            display: none;
+        }
+
+        .custom-check {
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--gold-light);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .event-checkbox.checked .custom-check {
+            background: var(--green);
+            border-color: var(--green);
+        }
+
+        .custom-check svg {
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: white;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .event-checkbox.checked .custom-check svg {
+            opacity: 1;
+        }
+
+        .checkbox-label {
+            flex: 1;
+        }
+
+        .checkbox-label .event-name {
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .checkbox-label .event-detail {
+            font-size: 0.75rem;
+            color: var(--text-medium);
+        }
+
+        /* Select All */
+        .select-all-row {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 8px;
+        }
+
+        .select-all-btn {
+            font-size: 0.78rem;
+            color: var(--gold);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            padding: 4px 0;
+        }
+
+        .select-all-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, var(--green-dark), var(--green));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+            margin-top: 24px;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(45, 80, 22, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 20px 20px;
+            color: var(--text-medium);
+            font-size: 0.8rem;
+        }
+
+        .footer .hearts {
+            color: var(--gold);
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .container {
+                padding: 12px 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .rsvp-section {
+                padding: 24px 16px;
+            }
+
+            .event-card {
+                padding: 14px 14px;
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <div class="header">
+        <div class="header-ornament">&#10022; &#10022; &#10022;</div>
+        <h1>
+            Snehal Lonare
+            <span class="amp">&</span>
+            Sanket Kanekar
+        </h1>
+        <p class="subtitle">Together with their families, cordially invite you<br>to join the occasion of their joyous commitment</p>
+        <p class="tagline">May 2026 &middot; Nagpur</p>
+    </div>
+
+    <div class="divider">
+        <span class="divider-line"></span>
+        <span class="divider-icon">&#10047;</span>
+        <span class="divider-line"></span>
+    </div>
+
+    <!-- Events Schedule -->
+    <h2 class="section-title">Celebration Schedule</h2>
+    <p class="section-subtitle">A multi-day celebration of love, family & joy</p>
+
+    <div class="events-grid">
+
+        <div class="event-card">
+            <div class="event-date-badge">
+                <div class="month">May</div>
+                <div class="day">20</div>
+            </div>
+            <div class="event-info">
+                <h3>Sangeet</h3>
+                <div class="event-time">7:00 PM &ndash; 8:30 PM</div>
+                <div class="event-venue"><a href="https://maps.app.goo.gl/search/The+Bhatia+Farms+Lawns+Banquet+Nagpur" target="_blank">The Bhatia Farms, Lawns & Banquet, Nagpur</a></div>
+                <span class="dress-code">&#128087; Indo Western Attire &nbsp;<a href="https://www.google.com/search?tbm=isch&q=indo+western+attire+for+indian+wedding" target="_blank">View Ideas</a></span>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <div class="event-date-badge">
+                <div class="month">May</div>
+                <div class="day">20</div>
+            </div>
+            <div class="event-info">
+                <h3>Haldi Ceremony</h3>
+                <div class="event-time">10:00 PM</div>
+                <div class="event-venue"><a href="https://maps.app.goo.gl/search/The+Bhatia+Farms+Lawns+Banquet+Nagpur" target="_blank">The Bhatia Farms, Lawns & Banquet, Nagpur</a></div>
+                <span class="dress-code">&#128087; Pink / Orange Kurta &nbsp;<a href="https://www.google.com/search?tbm=isch&q=pink+orange+kurta+for+haldi+ceremony" target="_blank">View Ideas</a></span>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <div class="event-date-badge">
+                <div class="month">May</div>
+                <div class="day">21</div>
+            </div>
+            <div class="event-info">
+                <h3>Pool Party</h3>
+                <div class="event-time">9:00 AM &ndash; 12:00 PM</div>
+                <div class="event-venue"><a href="https://maps.app.goo.gl/search/The+Bhatia+Farms+Lawns+Banquet+Nagpur" target="_blank">The Bhatia Farms, Lawns & Banquet, Nagpur</a></div>
+                <span class="dress-code">&#128087; Floral Colors &nbsp;<a href="https://www.google.com/search?tbm=isch&q=floral+outfit+for+pool+party+indian+wedding" target="_blank">View Ideas</a></span>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <div class="event-date-badge" style="background: linear-gradient(135deg, var(--gold), var(--gold-light));">
+                <div class="month">May</div>
+                <div class="day">21</div>
+            </div>
+            <div class="event-info">
+                <h3>Wedding</h3>
+                <div class="event-time">7:00 PM</div>
+                <div class="event-venue"><a href="https://maps.app.goo.gl/search/The+Bhatia+Farms+Lawns+Banquet+Nagpur" target="_blank">The Bhatia Farms, Lawns & Banquet, Nagpur</a></div>
+                <span class="dress-code">&#128087; Indian Attire &nbsp;<a href="https://www.google.com/search?tbm=isch&q=indian+traditional+attire+for+wedding+guest" target="_blank">View Ideas</a></span>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <div class="event-date-badge">
+                <div class="month">May</div>
+                <div class="day">22</div>
+            </div>
+            <div class="event-info">
+                <h3>Lunch</h3>
+                <div class="event-time">11:00 AM</div>
+                <div class="event-venue"><a href="https://maps.app.goo.gl/search/The+Bhatia+Farms+Lawns+Banquet+Nagpur" target="_blank">The Bhatia Farms, Lawns & Banquet, Nagpur</a></div>
+                <span class="dress-code">&#128087; Maharashtrian Attire &nbsp;<a href="https://www.google.com/search?tbm=isch&q=maharashtrian+traditional+attire" target="_blank">View Ideas</a></span>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <div class="event-date-badge">
+                <div class="month">May</div>
+                <div class="day">24</div>
+            </div>
+            <div class="event-info">
+                <h3>Reception</h3>
+                <div class="event-time">7:00 PM</div>
+                <div class="event-venue"><a href="https://maps.app.goo.gl/search/Samruddhi+Banquet+Nandur+Naka+Nashik" target="_blank">Samruddhi Banquet, Nandur Naka, Nashik 422006</a></div>
+                <span class="dress-code">&#128087; Western Attire &nbsp;<a href="https://www.google.com/search?tbm=isch&q=western+formal+attire+for+wedding+reception" target="_blank">View Ideas</a></span>
+            </div>
+        </div>
+
+    </div>
+
+    <p class="dress-note">
+        &#10024; The dress codes above are just suggestions to add to the fun — feel free to wear whatever makes you comfortable and happy!
+    </p>
+
+    <div class="divider">
+        <span class="divider-line"></span>
+        <span class="divider-icon">&#10047;</span>
+        <span class="divider-line"></span>
+    </div>
+
+    <!-- RSVP Form -->
+    <div class="rsvp-section">
+        <h2 class="section-title">RSVP</h2>
+        <p class="section-subtitle">We would love to celebrate with you! Please let us know.</p>
+
+        <form id="rsvpForm" onsubmit="return false;">
+
+            <div class="form-group">
+                <label>Full Name <span class="required">*</span></label>
+                <input type="text" id="guestName" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number <span class="required">*</span></label>
+                <input type="tel" id="guestPhone" placeholder="+91 98765 43210" required>
+            </div>
+
+            <div class="form-group">
+                <label>Number of Guests (including you) <span class="required">*</span></label>
+                <select id="guestCount" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6+">6+</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Which events will you be attending? <span class="required">*</span></label>
+                <div class="select-all-row">
+                    <button type="button" class="select-all-btn" onclick="toggleSelectAll()">Select All</button>
+                </div>
+                <div class="events-checklist">
+                    <label class="event-checkbox" onclick="toggleCheck(this)">
+                        <input type="checkbox" value="Sangeet (May 20, 7 PM)">
+                        <span class="custom-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                        <span class="checkbox-label">
+                            <span class="event-name">Sangeet</span>
+                            <span class="event-detail">May 20 &middot; 7:00 PM</span>
+                        </span>
+                    </label>
+                    <label class="event-checkbox" onclick="toggleCheck(this)">
+                        <input type="checkbox" value="Haldi Ceremony (May 20, 10 PM)">
+                        <span class="custom-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                        <span class="checkbox-label">
+                            <span class="event-name">Haldi Ceremony</span>
+                            <span class="event-detail">May 20 &middot; 10:00 PM</span>
+                        </span>
+                    </label>
+                    <label class="event-checkbox" onclick="toggleCheck(this)">
+                        <input type="checkbox" value="Pool Party (May 21, 9 AM)">
+                        <span class="custom-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                        <span class="checkbox-label">
+                            <span class="event-name">Pool Party</span>
+                            <span class="event-detail">May 21 &middot; 9:00 AM</span>
+                        </span>
+                    </label>
+                    <label class="event-checkbox" onclick="toggleCheck(this)">
+                        <input type="checkbox" value="Wedding (May 21, 7 PM)">
+                        <span class="custom-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                        <span class="checkbox-label">
+                            <span class="event-name">Wedding</span>
+                            <span class="event-detail">May 21 &middot; 7:00 PM</span>
+                        </span>
+                    </label>
+                    <label class="event-checkbox" onclick="toggleCheck(this)">
+                        <input type="checkbox" value="Lunch (May 22, 11 AM)">
+                        <span class="custom-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                        <span class="checkbox-label">
+                            <span class="event-name">Lunch</span>
+                            <span class="event-detail">May 22 &middot; 11:00 AM</span>
+                        </span>
+                    </label>
+                    <label class="event-checkbox" onclick="toggleCheck(this)">
+                        <input type="checkbox" value="Reception (May 24, 7 PM)">
+                        <span class="custom-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                        <span class="checkbox-label">
+                            <span class="event-name">Reception</span>
+                            <span class="event-detail">May 24 &middot; 7:00 PM &middot; Nashik</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <button type="button" class="submit-btn" onclick="submitRSVP()">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.528 5.86L.06 23.487a.5.5 0 00.612.612l5.627-1.468A11.948 11.948 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.94 0-3.76-.562-5.295-1.53a.5.5 0 00-.38-.063l-3.766.982.982-3.766a.5.5 0 00-.063-.38A9.959 9.959 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+                Send RSVP via WhatsApp
+            </button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="hearts">&#10084; &#10084; &#10084;</div>
+        <p>We can't wait to celebrate with you!</p>
+        <p style="margin-top: 4px; font-size: 0.72rem; color: #b5a88a;">Snehal & Sanket &middot; May 2026</p>
+    </div>
+
+</div>
+
+<script>
+    function toggleCheck(label) {
+        const checkbox = label.querySelector('input[type="checkbox"]');
+        checkbox.checked = !checkbox.checked;
+        label.classList.toggle('checked', checkbox.checked);
+    }
+
+    function toggleSelectAll() {
+        const checkboxes = document.querySelectorAll('.events-checklist input[type="checkbox"]');
+        const labels = document.querySelectorAll('.event-checkbox');
+        const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+
+        checkboxes.forEach((cb, i) => {
+            cb.checked = !allChecked;
+            labels[i].classList.toggle('checked', !allChecked);
+        });
+
+        document.querySelector('.select-all-btn').textContent = allChecked ? 'Select All' : 'Deselect All';
+    }
+
+    function submitRSVP() {
+        const name = document.getElementById('guestName').value.trim();
+        const phone = document.getElementById('guestPhone').value.trim();
+        const count = document.getElementById('guestCount').value;
+        const checkboxes = document.querySelectorAll('.events-checklist input[type="checkbox"]:checked');
+
+        // Validation
+        if (!name) {
+            alert('Please enter your name.');
+            return;
+        }
+        if (!phone) {
+            alert('Please enter your phone number.');
+            return;
+        }
+        if (!count) {
+            alert('Please select the number of guests.');
+            return;
+        }
+        if (checkboxes.length === 0) {
+            alert('Please select at least one event you will attend.');
+            return;
+        }
+
+        const events = Array.from(checkboxes).map(cb => cb.value).join('\n  - ');
+
+        const message = `Hello! I'd like to RSVP for Snehal & Sanket's Wedding 💐
+
+*Name:* ${name}
+*Phone:* ${phone}
+*Number of Guests:* ${count}
+
+*Events Attending:*
+  - ${events}
+
+Looking forward to celebrating with you! 🎉`;
+
+        const whatsappURL = `https://wa.me/16152996576?text=${encodeURIComponent(message)}`;
+        window.open(whatsappURL, '_blank');
+    }
+</script>
+
+</body>
+</html>
