@@ -418,10 +418,23 @@
         }
 
         /* Submit Button */
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .btn-or {
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--text-medium);
+            font-style: italic;
+        }
+
         .submit-btn {
             width: 100%;
             padding: 14px 24px;
-            background: linear-gradient(135deg, var(--green-dark), var(--green));
             color: white;
             border: none;
             border-radius: 12px;
@@ -434,8 +447,15 @@
             justify-content: center;
             gap: 10px;
             transition: all 0.3s;
-            margin-top: 24px;
             letter-spacing: 0.5px;
+        }
+
+        .submit-btn.whatsapp {
+            background: linear-gradient(135deg, #128c7e, #25d366);
+        }
+
+        .submit-btn.sheets {
+            background: linear-gradient(135deg, var(--green-dark), var(--green));
         }
 
         .submit-btn:hover {
@@ -447,10 +467,55 @@
             transform: translateY(0);
         }
 
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .submit-btn svg {
             width: 20px;
             height: 20px;
             fill: white;
+        }
+
+        /* Success / Error Messages */
+        .status-msg {
+            text-align: center;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            margin-top: 16px;
+            display: none;
+        }
+
+        .status-msg.success {
+            background: rgba(74, 124, 40, 0.1);
+            color: var(--green-dark);
+            border: 1px solid rgba(74, 124, 40, 0.3);
+            display: block;
+        }
+
+        .status-msg.error {
+            background: rgba(192, 57, 43, 0.1);
+            color: #c0392b;
+            border: 1px solid rgba(192, 57, 43, 0.3);
+            display: block;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2.5px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         /* Footer */
@@ -693,10 +758,19 @@
                 </div>
             </div>
 
-            <button type="button" class="submit-btn" onclick="submitRSVP()">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.528 5.86L.06 23.487a.5.5 0 00.612.612l5.627-1.468A11.948 11.948 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.94 0-3.76-.562-5.295-1.53a.5.5 0 00-.38-.063l-3.766.982.982-3.766a.5.5 0 00-.063-.38A9.959 9.959 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-                Send RSVP via WhatsApp
-            </button>
+            <div class="btn-group">
+                <button type="button" class="submit-btn sheets" id="sheetsBtn" onclick="submitToSheets()">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 7h2v2H7zm0 4h2v2H7zm0 4h2v2H7zm4-8h6v2h-6zm0 4h6v2h-6zm0 4h6v2h-6z"/></svg>
+                    Submit RSVP
+                </button>
+                <p class="btn-or">— or —</p>
+                <button type="button" class="submit-btn whatsapp" onclick="submitRSVP()">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.528 5.86L.06 23.487a.5.5 0 00.612.612l5.627-1.468A11.948 11.948 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.94 0-3.76-.562-5.295-1.53a.5.5 0 00-.38-.063l-3.766.982.982-3.766a.5.5 0 00-.063-.38A9.959 9.959 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+                    Send RSVP via WhatsApp
+                </button>
+            </div>
+
+            <div id="statusMsg" class="status-msg"></div>
         </form>
     </div>
 
@@ -729,37 +803,84 @@
         document.querySelector('.select-all-btn').textContent = allChecked ? 'Select All' : 'Deselect All';
     }
 
-    function submitRSVP() {
+    // ====== GOOGLE SHEETS URL ======
+    // Replace this with your Google Apps Script Web App URL
+    const GOOGLE_SCRIPT_URL = 'PASTE_YOUR_GOOGLE_SCRIPT_URL_HERE';
+
+    function validateForm() {
         const name = document.getElementById('guestName').value.trim();
         const phone = document.getElementById('guestPhone').value.trim();
         const count = document.getElementById('guestCount').value;
         const checkboxes = document.querySelectorAll('.events-checklist input[type="checkbox"]:checked');
 
-        // Validation
-        if (!name) {
-            alert('Please enter your name.');
-            return;
-        }
-        if (!phone) {
-            alert('Please enter your phone number.');
-            return;
-        }
-        if (!count) {
-            alert('Please select the number of guests.');
-            return;
-        }
-        if (checkboxes.length === 0) {
-            alert('Please select at least one event you will attend.');
-            return;
-        }
+        if (!name) { alert('Please enter your name.'); return null; }
+        if (!phone) { alert('Please enter your phone number.'); return null; }
+        if (!count) { alert('Please select the number of guests.'); return null; }
+        if (checkboxes.length === 0) { alert('Please select at least one event you will attend.'); return null; }
 
-        const events = Array.from(checkboxes).map(cb => cb.value).join('\n  - ');
+        const events = Array.from(checkboxes).map(cb => cb.value);
+        return { name, phone, count, events };
+    }
 
+    function showStatus(type, message) {
+        const el = document.getElementById('statusMsg');
+        el.className = 'status-msg ' + type;
+        el.textContent = message;
+    }
+
+    function submitToSheets() {
+        const data = validateForm();
+        if (!data) return;
+
+        const btn = document.getElementById('sheetsBtn');
+        const originalText = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner"></span> Submitting...';
+
+        const payload = {
+            name: data.name,
+            phone: data.phone,
+            guests: data.count,
+            events: data.events.join(', '),
+            timestamp: new Date().toLocaleString()
+        };
+
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        })
+        .then(() => {
+            showStatus('success', '🎉 Thank you! Your RSVP has been submitted successfully. We look forward to celebrating with you!');
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+            // Reset form
+            document.getElementById('guestName').value = '';
+            document.getElementById('guestPhone').value = '';
+            document.getElementById('guestCount').value = '';
+            document.querySelectorAll('.event-checkbox').forEach(label => {
+                label.classList.remove('checked');
+                label.querySelector('input').checked = false;
+            });
+        })
+        .catch(() => {
+            showStatus('error', 'Something went wrong. Please try again or use the WhatsApp option below.');
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        });
+    }
+
+    function submitRSVP() {
+        const data = validateForm();
+        if (!data) return;
+
+        const events = data.events.join('\n  - ');
         const message = `Hello! I'd like to RSVP for Snehal & Sanket's Wedding 💐
 
-*Name:* ${name}
-*Phone:* ${phone}
-*Number of Guests:* ${count}
+*Name:* ${data.name}
+*Phone:* ${data.phone}
+*Number of Guests:* ${data.count}
 
 *Events Attending:*
   - ${events}
